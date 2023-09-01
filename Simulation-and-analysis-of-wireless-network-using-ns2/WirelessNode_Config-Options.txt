@@ -1,0 +1,24 @@
+Option	|   Available Values	|   Remarks
+addressType	flat, hierarchichal	 
+MPLS	ON,OFF	#Multi protocol Label-Switching
+wiredRouting	ON, OFF	 
+llType	LL, LL/Sat	#Link Layer
+macType	Mac/802_11, Mac/Csma/Ca, Mac/Sat, Mac/Sat/UnslottedAloha, Mac/Tdma	#Medium Access Control
+ifqType	Queue/DropTail, Queue/DropTail/PriQueue	#Interface Queue-type
+phyType	Phy/wirelessPhy, Phy/Sat	#Physical Layer-Type
+adhocRouting	DIFFUSION/RATE, DIFFUSION/PROB, DSDV, DSR, FLOODING, OMNIMCAST,AODV,TORA,PUMA	#ADHOC-routing protocol
+propType	Propagation/TwoRayGround, Propagation/Shadowing	#Propagation-Type
+antType	Antenna/OmniAntenna,	#Antenna-type
+Channel	Channel/WirelessChannel, Channel/Sat	#Channel to be used
+mobileIP	ON,OFF	#to-set the IP for Mobile or not
+energyModel	EnergyModel	#energy model to be enabled or not
+initialEnergy	<joule>	#in terms of joules (Ex: 3.24)
+txPower	 	#Power in terms of Watts (0.32)
+rxPower	 	#Power in terms of Watts (0.1)
+idlePower	 	#Power in terms of Watts (0.02)
+agentTrace	ON, OFF	#Tracing to be on or off
+routerTrace	ON, OFF	#Tracing to be on or off
+macTrace	ON, OFF	#Tracing to be on or off
+movementTrace	ON, OFF	#Tracing to be on or off
+errProc	UniformErrorProc	 
+toraDebug	ON, OFF	 
