@@ -11,15 +11,10 @@ RUN wget https://github.com/kbdharun/CN-Lab/releases/download/nam/nam_1.14_amd64
     dpkg -i nam_1.14_amd64.deb && \
     apt-get install -f
 
-# Retry downloading XGraph with retries
-RUN retries=3 && \
-    until wget https://xgraph.org/linux/xgraph_4.38_linux64.tar.gz || [ $retries -eq 0 ]; do \
-        echo "Retrying..."; \
-        retries=$((retries-1)); \
-        sleep 5; \
-    done && \
+# Download and extract XGraph
+RUN wget https://xgraph.org/linux/xgraph_4.38_linux64.tar.gz && \
     tar xvfz xgraph_4.38_linux64.tar.gz && \
-    mv xgraph_4.38_linux64 /usr/local/bin/xgraph
+    mv xgraph_4.38_linux64/XGraph4.38_linux64 /usr/local/bin/xgraph
 
 # Cleanup
 RUN rm -rf nam_1.14_amd64.deb xgraph_4.38_linux64.tar.gz && \
