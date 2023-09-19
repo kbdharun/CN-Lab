@@ -19,11 +19,15 @@ RUN retries=3 && \
         sleep 5; \
     done && \
     tar xvfz xgraph_4.38_linux64.tar.gz -C /usr/local/bin/ && \
-    ln -s /usr/local/bin/xgraph_4.38_linux64/XGraph4.38_linux64/bin/xgraph /usr/local/bin/xgraph
+    ln -s /usr/local/bin/xgraph_4.38_linux64/XGraph4.38_linux64 /usr/local/bin/xgraph
 
 # Cleanup
 RUN rm -rf nam_1.14_amd64.deb xgraph_4.38_linux64.tar.gz && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-CMD ["/bin/bash"]
+# Entry script to detect the user's shell and execute xgraph
+COPY entry.sh /entry.sh
+RUN chmod +x /entry.sh
+
+CMD ["/entry.sh"]
