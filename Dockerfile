@@ -18,8 +18,8 @@ RUN retries=3 && \
         retries=$((retries-1)); \
         sleep 5; \
     done && \
-    tar xvfz xgraph_4.38_linux64.tar.gz && \
-    mv xgraph_4.38_linux64/XGraph4.38_linux64 /usr/local/bin/xgraph
+    tar xvfz xgraph_4.38_linux64.tar.gz -C /usr/local/bin/ && \
+    ln -s /usr/local/bin/xgraph_4.38_linux64/XGraph4.38_linux64/bin/xgraph /usr/local/bin/xgraph
 
 # Cleanup
 RUN rm -rf nam_1.14_amd64.deb xgraph_4.38_linux64.tar.gz && \
