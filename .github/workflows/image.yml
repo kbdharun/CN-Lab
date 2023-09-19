@@ -23,6 +23,6 @@ jobs:
 
      - name: Build and push to ghcr
        run: |
-          docker build . --tag ghcr.io/CN-Lab/CN-Lab-Image:latest
+          docker build . --tag ghcr.io/cn-lab/CN-Lab-Image:latest
           docker run ghcr.io/kbdharun/CN-Lab-Image:latest
           docker push ghcr.io/kbdharun/CN-Lab-Image:latest
