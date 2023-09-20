@@ -10,8 +10,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y wget && \
     apt-get install -y ns2 && \
-    apt-get install -y git && \
-    apt-get install -y x11-apps xauth xorg dbus-x11
+    apt-get install -y git
 
 # Download and install NAM
 RUN wget https://github.com/kbdharun/CN-Lab/releases/download/nam/nam_1.14_amd64.deb && \
@@ -32,8 +31,8 @@ RUN rm -f nam_1.14_amd64.deb && \
 # Create the vscode user
 RUN useradd -ms /bin/bash vscode
 
-# Set up X11 forwarding
-ENV DISPLAY=:0
+# Set the working directory
+WORKDIR /app
 
 # Command to run when the container starts
 CMD ["/bin/bash"]
