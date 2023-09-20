@@ -1,7 +1,7 @@
 {
-    "name": "NS2 Development Container",
-    "image": "ghcr.io/kbdharun/cn-lab-image:latest",
-    "forwardPorts": [],
-    "remoteUser": "vscode"
-  }
-  
+  "name": "NS2 Development Container",
+  "image": "ghcr.io/kbdharun/cn-lab-image:latest",
+  "forwardPorts": [],
+  "remoteUser": "vscode",
+  "runArgs": ["--privileged", "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"]
+}
