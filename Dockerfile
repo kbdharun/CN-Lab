@@ -28,9 +28,6 @@ RUN rm -f nam_1.14_amd64.deb && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Create the vscode user
-RUN useradd -ms /bin/bash vscode
-
 # Set the working directory
 WORKDIR /app
 
