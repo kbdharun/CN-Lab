@@ -28,8 +28,8 @@ RUN rm -f nam_1.14_amd64.deb && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Set the working directory for development
-WORKDIR /workspace
+# Set the working directory
+WORKDIR /app
 
-# Entry point for the development container
-CMD ["xgraph"]
+# Command to run when the container starts
+CMD ["/bin/bash"]
