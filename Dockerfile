@@ -9,8 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Update the package list and install necessary packages
 RUN apt-get update && \
     apt-get install -y wget && \
-    apt-get install -y ns2 && \
-    apt-get install -y x11-utils
+    apt-get install -y ns2
 
 # Download and install NAM
 RUN wget https://github.com/kbdharun/CN-Lab/releases/download/nam/nam_1.14_amd64.deb && \
