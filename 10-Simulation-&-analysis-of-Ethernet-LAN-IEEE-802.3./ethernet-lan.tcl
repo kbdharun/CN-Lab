@@ -1,27 +1,11 @@
 set ns [new Simulator]
 
-# Open the NAM trace file
-set nf [open prog.nam w]
-$ns namtrace-all $nf
+set tr [open "LAN.tr" w]
+$ns trace-all $tr
 
-# Open the trace file
-set nd [open prog.tr w]
-$ns trace-all $nd
+set nam [open "LAN.nam" w]
+$ns namtrace-all $nam
 
-# Define a finish procedure
-proc finish {} {
-    global ns nf nd
-    
-    $ns flush-trace
-    $ns halt
-    close $nf
-    close $nd
-    exec nam prog.nam &
-    exit 0
-}
-
-# Create 7 nodes
-set n0 [$ns node]
 set n1 [$ns node]
 set n2 [$ns node]
 set n3 [$ns node]
@@ -29,30 +13,47 @@ set n4 [$ns node]
 set n5 [$ns node]
 set n6 [$ns node]
 
-# Create a link between the nodes
-$ns duplex-link $n0 $n1 0.2Mb 40ms DropTail
-$ns duplex-link $n1 $n2 0.2Mb 40ms DropTail
-$ns duplex-link $n2 $n3 0.2Mb 40ms DropTail
-$ns duplex-link $n3 $n4 0.2Mb 40ms DropTail
-$ns duplex-link $n4 $n5 0.2Mb 40ms DropTail
-$ns duplex-link $n5 $n6 0.2Mb 40ms DropTail
+$ns make-lan "$n1 $n2 $n3 $n4 $n5 $n6" 0.2Mb 20ms LL Queue/DropTail Mac/802_3
 
-# Setup a TCP connection
-set tcp [new Agent/TCP]
-$ns attach-agent $n0 $tcp
-set sink [new Agent/TCPSink]
-$ns attach-agent $n5 $sink
-$ns connect $tcp $sink
+set tcpsendagent1 [new Agent/TCP]
+set tcpsendagent2 [new Agent/TCP]
 
-# Setup an FTP application over the TCP connection
-set ftp [new Application/FTP]
-$ftp attach-agent $tcp
+set tcprecvagent1 [new Agent/TCPSink]
+set tcprecvagent2 [new Agent/TCPSink]
 
-# Schedule FTP start and stop events
-$ns at 1.0 "$ftp start"
-$ns at 5.0 "$ftp stop"
-$ns at 5.5 "finish"
+$ns attach-agent $n1 $tcpsendagent1
+$ns attach-agent $n2 $tcpsendagent2
 
-# Run the simulation
+$ns attach-agent $n6 $tcprecvagent1
+$ns attach-agent $n6 $tcprecvagent2
+
+set app1 [new Application/FTP]
+set app2 [new Application/FTP]
+
+$app1 attach-agent $tcpsendagent1
+$app2 attach-agent $tcpsendagent2
+
+#As soon as you create agents make sure i connect them
+
+$ns connect $tcpsendagent1 $tcprecvagent1
+$ns connect $tcpsendagent2 $tcprecvagent2
+
+$ns at 0.1 "$app1 start"
+$ns at 0.4 "$app2 start"
+
+
+
+
+proc finish { } {
+global ns tr nam
+$ns flush-trace
+close $tr
+close $nam
+#exec nam namfile_tcp_ls.nam &
+exec gawk -f anal.awk LAN.tr &
+exit 0
+}
+
+$ns at 10 "finish"
+
 $ns run
-
